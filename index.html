@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tecno Presente Circular — Escritorio Interactivo</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main id="desktop">
+    <button type="button" class="desktop-icon" data-app="configuracion">
+      <span class="icon-emoji" aria-hidden="true">⚙️</span>
+      <span class="icon-label">Configuración</span>
+    </button>
+    <button type="button" class="desktop-icon" data-app="redes">
+      <span class="icon-emoji" aria-hidden="true">📶</span>
+      <span class="icon-label">Redes y Periféricos</span>
+    </button>
+    <button type="button" class="desktop-icon" data-app="archivos">
+      <span class="icon-emoji" aria-hidden="true">📁</span>
+      <span class="icon-label">Archivos y PDF</span>
+    </button>
+    <button type="button" class="desktop-icon" data-app="navegadores">
+      <span class="icon-emoji" aria-hidden="true">🌐</span>
+      <span class="icon-label">Navegadores Web</span>
+    </button>
+    <button type="button" class="desktop-icon" data-app="ofimatica">
+      <span class="icon-emoji" aria-hidden="true">📝</span>
+      <span class="icon-label">Ofimática</span>
+    </button>
+    <button type="button" class="desktop-icon" data-app="terminal">
+      <span class="icon-emoji" aria-hidden="true">💻</span>
+      <span class="icon-label">Terminal</span>
+    </button>
+    <button type="button" class="desktop-icon" data-app="wine">
+      <span class="icon-emoji" aria-hidden="true">🍷</span>
+      <span class="icon-label">Wine</span>
+    </button>
+    <button type="button" class="desktop-icon" data-app="ayuda">
+      <span class="icon-emoji" aria-hidden="true">❓</span>
+      <span class="icon-label">Ayuda y FAQ</span>
+    </button>
+
+    <section class="window hidden" data-window="configuracion">
+      <header class="window-titlebar">
+        <span class="window-title">⚙️ Configuración</span>
+        <button type="button" class="window-close" aria-label="Cerrar">X</button>
+      </header>
+      <div class="window-content" id="content-configuracion"></div>
+    </section>
+
+    <section class="window hidden" data-window="redes">
+      <header class="window-titlebar">
+        <span class="window-title">📶 Redes y Periféricos</span>
+        <button type="button" class="window-close" aria-label="Cerrar">X</button>
+      </header>
+      <div class="window-content" id="content-redes"></div>
+    </section>
+
+    <section class="window hidden" data-window="archivos">
+      <header class="window-titlebar">
+        <span class="window-title">📁 Archivos y PDF</span>
+        <button type="button" class="window-close" aria-label="Cerrar">X</button>
+      </header>
+      <div class="window-content" id="content-archivos"></div>
+    </section>
+
+    <section class="window hidden" data-window="navegadores">
+      <header class="window-titlebar">
+        <span class="window-title">🌐 Navegadores Web</span>
+        <button type="button" class="window-close" aria-label="Cerrar">X</button>
+      </header>
+      <div class="window-content" id="content-navegadores"></div>
+    </section>
+
+    <section class="window hidden" data-window="ofimatica">
+      <header class="window-titlebar">
+        <span class="window-title">📝 Ofimática</span>
+        <button type="button" class="window-close" aria-label="Cerrar">X</button>
+      </header>
+      <div class="window-content" id="content-ofimatica"></div>
+    </section>
+
+    <section class="window hidden" data-window="terminal">
+      <header class="window-titlebar">
+        <span class="window-title">💻 Terminal</span>
+        <button type="button" class="window-close" aria-label="Cerrar">X</button>
+      </header>
+      <div class="window-content" id="content-terminal">
+        <div id="terminal-history" class="terminal-history"></div>
+        <input id="terminal-input" type="text" placeholder="Escribe help...">
+      </div>
+    </section>
+
+    <section class="window hidden" data-window="wine">
+      <header class="window-titlebar">
+        <span class="window-title">🍷 Wine</span>
+        <button type="button" class="window-close" aria-label="Cerrar">X</button>
+      </header>
+      <div class="window-content" id="content-wine"></div>
+    </section>
+
+    <section class="window hidden" data-window="ayuda">
+      <header class="window-titlebar">
+        <span class="window-title">❓ Ayuda y FAQ</span>
+        <button type="button" class="window-close" aria-label="Cerrar">X</button>
+      </header>
+      <div class="window-content" id="content-ayuda"></div>
+    </section>
+  </main>
+
+  <script src="./data.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
+

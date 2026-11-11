@@ -1,0 +1,313 @@
+:root {
+  --tp-blue: #1a5b9a;
+  --tp-accent: #3689e6;
+  --tp-surface: #f5f6f7;
+  --tp-titlebar: #e8e8e8;
+  --tp-close: #e01b24;
+  --tp-terminal-bg: #1e1e1e;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: url('./assets/capturas/wallpaper-tecno-presente.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: hidden;
+}
+
+#desktop {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 12px;
+}
+
+.desktop-icon {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 96px;
+  padding: 10px 8px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.25;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 0 8px rgba(0, 0, 0, 0.65);
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.desktop-icon:hover,
+.desktop-icon:focus-visible {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  outline: none;
+}
+
+.desktop-icon:active {
+  transform: scale(0.97);
+}
+
+.icon-emoji {
+  font-size: 32px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
+}
+
+.window {
+  position: absolute;
+  top: 48px;
+  left: 150px;
+  width: min(740px, calc(100vw - 40px));
+  max-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  background: var(--tp-surface);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  z-index: 10;
+}
+
+.window.hidden,
+.hidden {
+  display: none;
+}
+
+.window-titlebar {
+  background: var(--tp-titlebar);
+  cursor: move;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  border-bottom: 1px solid #d4d4d4;
+  user-select: none;
+}
+
+.window-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.window-close {
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 50%;
+  background: var(--tp-close);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter 0.15s ease, transform 0.1s ease;
+}
+
+.window-close:hover {
+  filter: brightness(0.9);
+}
+
+.window-close:active {
+  transform: scale(0.92);
+}
+
+.window-content {
+  padding: 16px;
+  overflow-y: auto;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #222222;
+  flex: 1;
+}
+
+.window-content h2,
+.window-content h3 {
+  color: var(--tp-blue);
+  margin: 12px 0 6px;
+}
+
+.window-content h2:first-child,
+.window-content h3:first-child {
+  margin-top: 0;
+}
+
+.window-content p {
+  margin-bottom: 10px;
+}
+
+.window-content ul,
+.window-content ol {
+  margin: 0 0 12px 20px;
+}
+
+.window-content li {
+  margin-bottom: 4px;
+}
+
+.window-content a {
+  color: var(--tp-accent);
+}
+
+.window-content code,
+.window-content kbd {
+  background: #e5e7eb;
+  color: #111827;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Cascadia Code', 'Fira Code', Consolas, 'Courier New', monospace;
+  font-size: 13px;
+}
+
+.screenshot {
+  display: block;
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 10px 0;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.window-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0 14px;
+  font-size: 13px;
+  background: #ffffff;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #d1d5db;
+}
+
+.window-content th,
+.window-content td {
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.window-content thead th {
+  background: var(--tp-blue);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.window-content tbody tr:nth-child(even) {
+  background: #f0f7f4;
+}
+
+.manual-tip {
+  background: #e9f2e6;
+  border-left: 4px solid #65a30d;
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin: 12px 0;
+  font-size: 13px;
+}
+
+#content-terminal {
+  background: var(--tp-terminal-bg);
+  color: #ffffff;
+  font-family: 'Cascadia Code', 'Fira Code', Consolas, 'Courier New', monospace;
+  display: flex;
+  flex-direction: column;
+  min-height: 360px;
+}
+
+.terminal-guide {
+  background: #252526;
+  border: 1px solid #3f3f46;
+  border-left: 4px solid var(--tp-accent);
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #e5e7eb;
+}
+
+.terminal-guide h3 {
+  color: #7dd3fc;
+  margin: 0 0 6px;
+  font-size: 14px;
+}
+
+.terminal-guide p {
+  margin-bottom: 6px;
+}
+
+.terminal-guide p:last-child {
+  margin-bottom: 0;
+}
+
+.terminal-guide .terminal-warning {
+  color: #fde68a;
+}
+
+.terminal-history {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  white-space: pre-wrap;
+  line-height: 1.5;
+  font-size: 13px;
+}
+
+#terminal-input {
+  width: 100%;
+  background: #2b2b2b;
+  color: #ffffff;
+  border: 1px solid #3f3f46;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-family: inherit;
+  font-size: 13px;
+  outline: none;
+}
+
+#terminal-input:focus {
+  border-color: var(--tp-accent);
+}
+
+#terminal-input::placeholder {
+  color: #9ca3af;
+}
+
+@media (max-width: 640px) {
+  .window {
+    top: 16px;
+    left: 10px;
+    width: calc(100vw - 20px);
+    max-height: calc(100vh - 32px);
+  }
+}
+

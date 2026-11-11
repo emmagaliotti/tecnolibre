@@ -1,0 +1,7 @@
+# Ignorar copias originales sueltas en la raíz (las capturas activas están en assets/capturas/)
+/*.png
+/*.pdf
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
