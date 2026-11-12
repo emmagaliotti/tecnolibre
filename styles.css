@@ -1,245 +1,443 @@
+/* ==========================================================================
+   Tecno Presente Circular (Zorin OS) - Simulador de Escritorio
+   Arquitectura inspirada en LinuxSO2 + Identidad Visual Ministerio de Córdoba
+   ========================================================================== */
+
 :root {
   --tp-blue: #1a5b9a;
   --tp-accent: #3689e6;
-  --tp-surface: #f5f6f7;
-  --tp-titlebar: #e8e8e8;
+  --tp-window-bg: #f5f6f7;
+  --tp-window-header: #e6e8ec;
+  --tp-window-border: #d0d5dd;
+  --tp-text-main: #333333;
+  --tp-text-muted: #5f6368;
   --tp-close: #e01b24;
   --tp-terminal-bg: #1e1e1e;
+  --tp-green-badge: #5c9e31;
+  --panel-height: 44px;
+  --shadow-window: 0 14px 40px rgba(0, 0, 0, 0.4);
+  --shadow-menu: 0 12px 32px rgba(0, 0, 0, 0.28);
+  --transition-fast: 0.15s ease;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+html,
 body {
-  background-image: url('./assets/capturas/wallpaper-tecno-presente.jpg');
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  font-family: 'Ubuntu', 'Cantarell', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  color: var(--tp-text-main);
+}
+
+body {
+  background-image: url('./assets/wallpaper-tecno-presente.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  min-height: 100vh;
-  font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: inherit;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(26, 91, 154, 0.35);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--tp-accent);
+}
+
+/* Screen Viewport & Workspace */
+#desktop-screen {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
 }
 
 #desktop {
   position: relative;
+  flex: 1;
   width: 100%;
-  height: 100vh;
-  padding: 20px;
+  height: calc(100vh - var(--panel-height));
+  overflow: hidden;
+  z-index: 2;
+}
+
+/* Desktop Icons Grid (Arquitectura LinuxSO2) */
+#desktop-icons-container {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  bottom: 16px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   align-content: flex-start;
   gap: 12px;
+  z-index: 5;
+  pointer-events: none;
 }
 
 .desktop-icon {
-  cursor: pointer;
+  width: 98px;
+  min-height: 92px;
+  padding: 10px 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  width: 96px;
-  padding: 10px 8px;
-  background: transparent;
-  border: none;
-  border-radius: 8px;
-  color: #ffffff;
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 1.25;
   text-align: center;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 0 8px rgba(0, 0, 0, 0.65);
-  transition: background-color 0.15s ease, transform 0.1s ease;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  pointer-events: auto;
+  user-select: none;
+  color: #ffffff;
+  transition: background var(--transition-fast), border-color var(--transition-fast), transform 0.1s ease;
 }
 
 .desktop-icon:hover,
 .desktop-icon:focus-visible {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  outline: none;
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+}
+
+.desktop-icon.selected {
+  background: rgba(54, 137, 230, 0.35);
+  border-color: rgba(54, 137, 230, 0.75);
 }
 
 .desktop-icon:active {
-  transform: scale(0.97);
+  transform: scale(0.96);
 }
 
 .icon-emoji {
-  font-size: 32px;
+  font-size: 34px;
   line-height: 1;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.45));
+  pointer-events: none;
 }
 
-.window {
+.desktop-icon .icon-label {
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.25;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(15, 23, 42, 0.45);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95), 0 0 6px rgba(0, 0, 0, 0.85);
+  word-break: break-word;
+  pointer-events: none;
+}
+
+/* Windows (Arquitectura .mint-window + Estilo Claro Zorin OS) */
+.mint-window {
   position: absolute;
-  top: 48px;
-  left: 150px;
-  width: min(740px, calc(100vw - 40px));
-  max-height: calc(100vh - 80px);
+  top: 32px;
+  left: 145px;
+  width: min(780px, calc(100vw - 40px));
+  height: min(560px, calc(100vh - var(--panel-height) - 48px));
+  background: var(--tp-window-bg);
+  border: 1px solid var(--tp-window-border);
+  border-radius: 10px;
+  box-shadow: var(--shadow-window);
+  color: #333333;
   display: flex;
   flex-direction: column;
-  background: var(--tp-surface);
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 10px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   overflow: hidden;
+  min-width: 340px;
+  min-height: 260px;
+  transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
   z-index: 10;
 }
 
-.window.hidden,
-.hidden {
+.mint-window.active {
+  border-color: rgba(54, 137, 230, 0.55);
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(54, 137, 230, 0.3);
+}
+
+.mint-window.hidden,
+.mint-window.minimized {
   display: none;
 }
 
-.window-titlebar {
-  background: var(--tp-titlebar);
-  cursor: move;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 14px;
-  border-bottom: 1px solid #d4d4d4;
-  user-select: none;
+.mint-window.maximized {
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 0 !important;
+  border: none !important;
 }
 
-.window-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: #1f2937;
+/* Window Header / Titlebar */
+.window-header {
+  height: 40px;
+  background: var(--tp-window-header);
+  border-bottom: 1px solid var(--tp-window-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  cursor: grab;
+  user-select: none;
+  flex-shrink: 0;
+  transition: background var(--transition-fast);
+}
+
+.mint-window.active .window-header {
+  background: #eff2f6;
+}
+
+.window-header:active {
+  cursor: grabbing;
+}
+
+.window-title-group {
   display: flex;
   align-items: center;
   gap: 8px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-.window-close {
+.window-title-icon {
+  font-size: 16px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.window-title-text {
+  font-weight: 600;
+  font-size: 13.5px;
+  color: #1f2937;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mint-window:not(.active) .window-title-text {
+  color: var(--tp-text-muted);
+}
+
+/* Window Control Buttons (Zorin OS Light Circular Controls) */
+.window-controls {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-left: 12px;
+  flex-shrink: 0;
+}
+
+.win-btn {
   width: 24px;
   height: 24px;
-  border: none;
   border-radius: 50%;
-  background: var(--tp-close);
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 1;
-  cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: filter 0.15s ease, transform 0.1s ease;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  color: #374151;
+  background: #d8dce3;
+  transition: all var(--transition-fast);
 }
 
-.window-close:hover {
-  filter: brightness(0.9);
+.win-btn:hover {
+  background: #c5cbd4;
+  color: #111827;
 }
 
-.window-close:active {
-  transform: scale(0.92);
+.win-btn-close {
+  background: var(--tp-close);
+  color: #ffffff;
 }
 
-.window-content {
-  padding: 16px;
+.win-btn-close:hover {
+  background: #c0161e;
+  color: #ffffff;
+}
+
+/* Window Body */
+.window-body {
+  flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
+  padding: 18px 20px;
   font-size: 14px;
   line-height: 1.6;
-  color: #222222;
-  flex: 1;
+  background: var(--tp-window-bg);
+  color: #333333;
+  user-select: text;
 }
 
-.window-content h2,
-.window-content h3 {
+.window-body h2 {
   color: var(--tp-blue);
-  margin: 12px 0 6px;
+  font-size: 18px;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid rgba(54, 137, 230, 0.25);
 }
 
-.window-content h2:first-child,
-.window-content h3:first-child {
-  margin-top: 0;
+.window-body h3 {
+  color: var(--tp-blue);
+  font-size: 15px;
+  margin: 14px 0 6px;
 }
 
-.window-content p {
+.window-body p {
   margin-bottom: 10px;
 }
 
-.window-content ul,
-.window-content ol {
+.window-body ul,
+.window-body ol {
   margin: 0 0 12px 20px;
 }
 
-.window-content li {
-  margin-bottom: 4px;
+.window-body li {
+  margin-bottom: 5px;
 }
 
-.window-content a {
+.window-body a {
   color: var(--tp-accent);
+  text-decoration: none;
+  font-weight: 500;
 }
 
-.window-content code,
-.window-content kbd {
-  background: #e5e7eb;
-  color: #111827;
+.window-body a:hover {
+  text-decoration: underline;
+}
+
+.window-body code,
+.window-body kbd {
+  background: #e2e8f0;
+  color: #0f172a;
   padding: 2px 6px;
   border-radius: 4px;
-  font-family: 'Cascadia Code', 'Fira Code', Consolas, 'Courier New', monospace;
+  font-family: 'Ubuntu Mono', 'Cascadia Code', 'Fira Code', Consolas, monospace;
   font-size: 13px;
+}
+
+.window-body kbd {
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 1px 0 #cbd5e1;
 }
 
 .screenshot {
   display: block;
   max-width: 100%;
   border-radius: 8px;
-  margin: 10px 0;
+  margin: 12px 0;
   border: 1px solid rgba(0, 0, 0, 0.12);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
-.window-content table {
+.window-body table {
   width: 100%;
   border-collapse: collapse;
   margin: 10px 0 14px;
   font-size: 13px;
   background: #ffffff;
-  border-radius: 6px;
+  border-radius: 8px;
   overflow: hidden;
   border: 1px solid #d1d5db;
 }
 
-.window-content th,
-.window-content td {
+.window-body th,
+.window-body td {
   padding: 8px 10px;
   text-align: left;
   border-bottom: 1px solid #e5e7eb;
 }
 
-.window-content thead th {
+.window-body thead th {
   background: var(--tp-blue);
   color: #ffffff;
   font-weight: 600;
 }
 
-.window-content tbody tr:nth-child(even) {
-  background: #f0f7f4;
+.window-body tbody tr:nth-child(even) {
+  background: #f1f5f9;
 }
 
 .manual-tip {
-  background: #e9f2e6;
-  border-left: 4px solid #65a30d;
-  padding: 10px 12px;
+  background: #eaf4e5;
+  border-left: 4px solid var(--tp-green-badge);
+  padding: 10px 14px;
   border-radius: 6px;
   margin: 12px 0;
   font-size: 13px;
+  color: #1e293b;
 }
 
+.manual-note {
+  background: #e8f1fb;
+  border-left: 4px solid var(--tp-accent);
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin: 12px 0;
+  font-size: 13px;
+  color: #1e293b;
+}
+
+/* Window Statusbar */
+.window-statusbar {
+  height: 26px;
+  background: #eceef1;
+  border-top: 1px solid var(--tp-window-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  font-size: 11.5px;
+  color: var(--tp-text-muted);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+/* Terminal Styles */
 #content-terminal {
   background: var(--tp-terminal-bg);
-  color: #ffffff;
-  font-family: 'Cascadia Code', 'Fira Code', Consolas, 'Courier New', monospace;
+  color: #f3f4f6;
+  font-family: 'Ubuntu Mono', 'Cascadia Code', 'Fira Code', Consolas, monospace;
   display: flex;
   flex-direction: column;
-  min-height: 360px;
+  padding: 14px 16px;
 }
 
 .terminal-guide {
@@ -249,7 +447,7 @@ body {
   border-radius: 6px;
   padding: 10px 12px;
   margin-bottom: 12px;
-  font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Ubuntu', 'Cantarell', system-ui, sans-serif;
   font-size: 13px;
   line-height: 1.5;
   color: #e5e7eb;
@@ -269,6 +467,14 @@ body {
   margin-bottom: 0;
 }
 
+.terminal-guide code,
+.terminal-guide kbd {
+  background: #334155;
+  color: #f8fafc;
+  border-color: #475569;
+  box-shadow: none;
+}
+
 .terminal-guide .terminal-warning {
   color: #fde68a;
 }
@@ -282,32 +488,400 @@ body {
   font-size: 13px;
 }
 
-#terminal-input {
-  width: 100%;
-  background: #2b2b2b;
-  color: #ffffff;
+.term-prompt-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #262626;
   border: 1px solid #3f3f46;
   border-radius: 6px;
-  padding: 8px 10px;
+  padding: 6px 10px;
+  flex-shrink: 0;
+}
+
+.term-prompt-line:focus-within {
+  border-color: var(--tp-accent);
+}
+
+.term-prompt-label {
+  color: #60a5fa;
+  font-weight: 700;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.term-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #ffffff;
   font-family: inherit;
   font-size: 13px;
   outline: none;
 }
 
-#terminal-input:focus {
-  border-color: var(--tp-accent);
-}
-
-#terminal-input::placeholder {
+.term-input::placeholder {
   color: #9ca3af;
 }
 
-@media (max-width: 640px) {
-  .window {
-    top: 16px;
-    left: 10px;
-    width: calc(100vw - 20px);
-    max-height: calc(100vh - 32px);
-  }
+/* Bottom Taskbar / Panel (Inspirado en #cinnamon-panel de LinuxSO2, estética Zorin OS) */
+#zorin-panel {
+  position: relative;
+  width: 100%;
+  height: var(--panel-height);
+  background: rgba(245, 246, 247, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.14);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 6px;
+  z-index: 10000;
+  user-select: none;
 }
 
+.panel-left {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 4px;
+}
+
+.zorin-menu-button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 6px;
+  background: rgba(26, 91, 154, 0.08);
+  border: 1px solid rgba(26, 91, 154, 0.16);
+  color: var(--tp-blue);
+  font-weight: 700;
+  font-size: 13px;
+  transition: all var(--transition-fast);
+}
+
+.zorin-menu-button:hover,
+.zorin-menu-button.active {
+  background: var(--tp-accent);
+  border-color: var(--tp-accent);
+  color: #ffffff;
+}
+
+.zorin-menu-button img {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.panel-quick-launch {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  margin-left: 4px;
+  padding-left: 6px;
+  border-left: 1px solid rgba(0, 0, 0, 0.12);
+  gap: 2px;
+}
+
+.quick-icon-btn {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 17px;
+  transition: background var(--transition-fast);
+}
+
+.quick-icon-btn:hover {
+  background: rgba(54, 137, 230, 0.14);
+}
+
+.panel-tasklist {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+  margin: 0 10px;
+  gap: 5px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.panel-tasklist::-webkit-scrollbar {
+  display: none;
+}
+
+.task-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 34px;
+  min-width: 120px;
+  max-width: 210px;
+  padding: 0 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #374151;
+  font-size: 12.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all var(--transition-fast);
+}
+
+.task-item:hover {
+  background: #ffffff;
+}
+
+.task-item.active {
+  background: #ffffff;
+  color: var(--tp-blue);
+  font-weight: 600;
+  border-color: rgba(54, 137, 230, 0.45);
+}
+
+.task-item.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 6px;
+  right: 6px;
+  height: 3px;
+  background: var(--tp-accent);
+  border-radius: 2px 2px 0 0;
+}
+
+.task-item.minimized-task {
+  opacity: 0.65;
+}
+
+.task-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.panel-right {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 4px;
+}
+
+.tray-item {
+  height: 32px;
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  color: #374151;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.tray-item:hover {
+  background: rgba(0, 0, 0, 0.07);
+}
+
+.tray-status-badge {
+  gap: 6px;
+  background: rgba(54, 137, 230, 0.12);
+  border: 1px solid rgba(54, 137, 230, 0.25);
+  color: var(--tp-blue);
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 0 9px;
+  border-radius: 14px;
+  height: 26px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 6px rgba(34, 197, 94, 0.7);
+}
+
+.tray-clock {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.show-desktop-btn {
+  width: 10px;
+  height: 100%;
+  border-left: 1px solid rgba(0, 0, 0, 0.15);
+  margin-left: 4px;
+  transition: background var(--transition-fast);
+}
+
+.show-desktop-btn:hover {
+  background: rgba(54, 137, 230, 0.25);
+}
+
+/* Zorin Start Menu Popup */
+#zorin-menu-popup {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  width: min(370px, calc(100vw - 16px));
+  max-height: calc(100vh - var(--panel-height) - 24px);
+  background: rgba(245, 246, 247, 0.97);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--tp-window-border);
+  border-radius: 10px;
+  box-shadow: var(--shadow-menu);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 10001;
+}
+
+#zorin-menu-popup.open {
+  display: flex;
+}
+
+.menu-top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  background: #ffffff;
+  border-bottom: 1px solid var(--tp-window-border);
+}
+
+.menu-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.menu-user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.menu-user-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-user-meta .name {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--tp-blue);
+}
+
+.menu-user-meta .sub {
+  font-size: 11px;
+  color: var(--tp-text-muted);
+}
+
+.badge-tp {
+  background: rgba(54, 137, 230, 0.14);
+  color: var(--tp-blue);
+  border: 1px solid rgba(54, 137, 230, 0.35);
+  border-radius: 14px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.menu-apps-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.app-menu-entry {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: 7px;
+  text-align: left;
+  transition: background var(--transition-fast);
+}
+
+.app-menu-entry:hover {
+  background: rgba(54, 137, 230, 0.14);
+}
+
+.app-entry-emoji {
+  font-size: 22px;
+  width: 28px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.app-entry-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-entry-info .app-name {
+  font-weight: 600;
+  font-size: 13px;
+  color: #1f2937;
+}
+
+.app-entry-info .app-desc {
+  font-size: 11px;
+  color: var(--tp-text-muted);
+}
+
+.menu-search-bar {
+  padding: 10px 12px;
+  background: #ffffff;
+  border-top: 1px solid var(--tp-window-border);
+}
+
+.menu-search-input {
+  width: 100%;
+  padding: 7px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 18px;
+  background: #f8fafc;
+  color: #1f2937;
+  font-family: inherit;
+  font-size: 12.5px;
+  outline: none;
+}
+
+.menu-search-input:focus {
+  border-color: var(--tp-accent);
+  box-shadow: 0 0 0 2px rgba(54, 137, 230, 0.2);
+}
+
+@media (max-width: 680px) {
+  .panel-quick-launch,
+  .tray-status-badge {
+    display: none;
+  }
+
+  .mint-window {
+    top: 10px;
+    left: 10px;
+    width: calc(100vw - 20px);
+    height: calc(100vh - var(--panel-height) - 20px);
+    min-width: 0;
+  }
+}

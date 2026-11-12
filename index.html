@@ -3,114 +3,334 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tecno Presente Circular — Escritorio Interactivo</title>
+  <title>Tecno Presente Circular — Manual Interactivo (Zorin OS)</title>
+  <meta name="description" content="Manual de capacitación interactivo simulando el escritorio de Tecno Presente Circular (Zorin OS) del Ministerio de Educación de la Provincia de Córdoba.">
+  <link rel="icon" type="image/png" href="./assets/capturas/logo-calco.png">
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <main id="desktop">
-    <button type="button" class="desktop-icon" data-app="configuracion">
-      <span class="icon-emoji" aria-hidden="true">⚙️</span>
-      <span class="icon-label">Configuración</span>
-    </button>
-    <button type="button" class="desktop-icon" data-app="redes">
-      <span class="icon-emoji" aria-hidden="true">📶</span>
-      <span class="icon-label">Redes y Periféricos</span>
-    </button>
-    <button type="button" class="desktop-icon" data-app="archivos">
-      <span class="icon-emoji" aria-hidden="true">📁</span>
-      <span class="icon-label">Archivos y PDF</span>
-    </button>
-    <button type="button" class="desktop-icon" data-app="navegadores">
-      <span class="icon-emoji" aria-hidden="true">🌐</span>
-      <span class="icon-label">Navegadores Web</span>
-    </button>
-    <button type="button" class="desktop-icon" data-app="ofimatica">
-      <span class="icon-emoji" aria-hidden="true">📝</span>
-      <span class="icon-label">Ofimática</span>
-    </button>
-    <button type="button" class="desktop-icon" data-app="terminal">
-      <span class="icon-emoji" aria-hidden="true">💻</span>
-      <span class="icon-label">Terminal</span>
-    </button>
-    <button type="button" class="desktop-icon" data-app="wine">
-      <span class="icon-emoji" aria-hidden="true">🍷</span>
-      <span class="icon-label">Wine</span>
-    </button>
-    <button type="button" class="desktop-icon" data-app="ayuda">
-      <span class="icon-emoji" aria-hidden="true">❓</span>
-      <span class="icon-label">Ayuda y FAQ</span>
-    </button>
+  <div id="desktop-screen">
+    <main id="desktop">
+      <div id="desktop-icons-container">
+        <button type="button" class="desktop-icon" data-app="configuracion">
+          <span class="icon-emoji" aria-hidden="true">⚙️</span>
+          <span class="icon-label">Configuración</span>
+        </button>
 
-    <section class="window hidden" data-window="configuracion">
-      <header class="window-titlebar">
-        <span class="window-title">⚙️ Configuración</span>
-        <button type="button" class="window-close" aria-label="Cerrar">X</button>
-      </header>
-      <div class="window-content" id="content-configuracion"></div>
-    </section>
+        <button type="button" class="desktop-icon" data-app="redes">
+          <span class="icon-emoji" aria-hidden="true">📶</span>
+          <span class="icon-label">Redes y Periféricos</span>
+        </button>
 
-    <section class="window hidden" data-window="redes">
-      <header class="window-titlebar">
-        <span class="window-title">📶 Redes y Periféricos</span>
-        <button type="button" class="window-close" aria-label="Cerrar">X</button>
-      </header>
-      <div class="window-content" id="content-redes"></div>
-    </section>
+        <button type="button" class="desktop-icon" data-app="archivos">
+          <span class="icon-emoji" aria-hidden="true">📁</span>
+          <span class="icon-label">Archivos y PDF</span>
+        </button>
 
-    <section class="window hidden" data-window="archivos">
-      <header class="window-titlebar">
-        <span class="window-title">📁 Archivos y PDF</span>
-        <button type="button" class="window-close" aria-label="Cerrar">X</button>
-      </header>
-      <div class="window-content" id="content-archivos"></div>
-    </section>
+        <button type="button" class="desktop-icon" data-app="navegadores">
+          <span class="icon-emoji" aria-hidden="true">🌐</span>
+          <span class="icon-label">Navegadores Web</span>
+        </button>
 
-    <section class="window hidden" data-window="navegadores">
-      <header class="window-titlebar">
-        <span class="window-title">🌐 Navegadores Web</span>
-        <button type="button" class="window-close" aria-label="Cerrar">X</button>
-      </header>
-      <div class="window-content" id="content-navegadores"></div>
-    </section>
+        <button type="button" class="desktop-icon" data-app="ofimatica">
+          <span class="icon-emoji" aria-hidden="true">📝</span>
+          <span class="icon-label">Ofimática</span>
+        </button>
 
-    <section class="window hidden" data-window="ofimatica">
-      <header class="window-titlebar">
-        <span class="window-title">📝 Ofimática</span>
-        <button type="button" class="window-close" aria-label="Cerrar">X</button>
-      </header>
-      <div class="window-content" id="content-ofimatica"></div>
-    </section>
+        <button type="button" class="desktop-icon" data-app="terminal">
+          <span class="icon-emoji" aria-hidden="true">💻</span>
+          <span class="icon-label">Terminal</span>
+        </button>
 
-    <section class="window hidden" data-window="terminal">
-      <header class="window-titlebar">
-        <span class="window-title">💻 Terminal</span>
-        <button type="button" class="window-close" aria-label="Cerrar">X</button>
-      </header>
-      <div class="window-content" id="content-terminal">
-        <div id="terminal-history" class="terminal-history"></div>
-        <input id="terminal-input" type="text" placeholder="Escribe help...">
+        <button type="button" class="desktop-icon" data-app="wine">
+          <span class="icon-emoji" aria-hidden="true">🍷</span>
+          <span class="icon-label">Wine</span>
+        </button>
+
+        <button type="button" class="desktop-icon" data-app="ayuda">
+          <span class="icon-emoji" aria-hidden="true">❓</span>
+          <span class="icon-label">Ayuda y FAQ</span>
+        </button>
       </div>
-    </section>
 
-    <section class="window hidden" data-window="wine">
-      <header class="window-titlebar">
-        <span class="window-title">🍷 Wine</span>
-        <button type="button" class="window-close" aria-label="Cerrar">X</button>
-      </header>
-      <div class="window-content" id="content-wine"></div>
-    </section>
+      <!-- Ventana 1: Configuración y Escritorio (Cap. 1) -->
+      <section id="win-configuracion" class="mint-window hidden" data-window="configuracion" role="dialog" aria-labelledby="win-configuracion-title">
+        <header class="window-header">
+          <div class="window-title-group">
+            <span class="window-title-icon" aria-hidden="true">⚙️</span>
+            <span id="win-configuracion-title" class="window-title-text">Configuración · Escritorio y Navegación Básica</span>
+          </div>
+          <div class="window-controls">
+            <button type="button" class="win-btn win-btn-minimize" title="Minimizar" aria-label="Minimizar">&#8211;</button>
+            <button type="button" class="win-btn win-btn-maximize" title="Maximizar" aria-label="Maximizar">&#9633;</button>
+            <button type="button" class="win-btn win-btn-close" title="Cerrar" aria-label="Cerrar">&#10005;</button>
+          </div>
+        </header>
+        <div class="window-body" id="content-configuracion"></div>
+        <footer class="window-statusbar">
+          <span>Capítulo 01 · Escritorio, Menú, Dock y Zorin Appearance</span>
+          <span>Tecno Presente Circular</span>
+        </footer>
+      </section>
 
-    <section class="window hidden" data-window="ayuda">
-      <header class="window-titlebar">
-        <span class="window-title">❓ Ayuda y FAQ</span>
-        <button type="button" class="window-close" aria-label="Cerrar">X</button>
-      </header>
-      <div class="window-content" id="content-ayuda"></div>
-    </section>
-  </main>
+      <!-- Ventana 2: Redes y Periféricos (Cap. 2) -->
+      <section id="win-redes" class="mint-window hidden" data-window="redes" role="dialog" aria-labelledby="win-redes-title">
+        <header class="window-header">
+          <div class="window-title-group">
+            <span class="window-title-icon" aria-hidden="true">📶</span>
+            <span id="win-redes-title" class="window-title-text">Redes y Periféricos · Wi-Fi e Impresoras</span>
+          </div>
+          <div class="window-controls">
+            <button type="button" class="win-btn win-btn-minimize" title="Minimizar" aria-label="Minimizar">&#8211;</button>
+            <button type="button" class="win-btn win-btn-maximize" title="Maximizar" aria-label="Maximizar">&#9633;</button>
+            <button type="button" class="win-btn win-btn-close" title="Cerrar" aria-label="Cerrar">&#10005;</button>
+          </div>
+        </header>
+        <div class="window-body" id="content-redes"></div>
+        <footer class="window-statusbar">
+          <span>Capítulo 02 · Wi-Fi, Impresoras, USB, Webcams y Escáneres</span>
+          <span>Zorin OS NetworkManager</span>
+        </footer>
+      </section>
+
+      <!-- Ventana 3: Archivos y PDF (Cap. 3) -->
+      <section id="win-archivos" class="mint-window hidden" data-window="archivos" role="dialog" aria-labelledby="win-archivos-title">
+        <header class="window-header">
+          <div class="window-title-group">
+            <span class="window-title-icon" aria-hidden="true">📁</span>
+            <span id="win-archivos-title" class="window-title-text">Archivos y PDF · Explorador Nautilus</span>
+          </div>
+          <div class="window-controls">
+            <button type="button" class="win-btn win-btn-minimize" title="Minimizar" aria-label="Minimizar">&#8211;</button>
+            <button type="button" class="win-btn win-btn-maximize" title="Maximizar" aria-label="Maximizar">&#9633;</button>
+            <button type="button" class="win-btn win-btn-close" title="Cerrar" aria-label="Cerrar">&#10005;</button>
+          </div>
+        </header>
+        <div class="window-body" id="content-archivos"></div>
+        <footer class="window-statusbar">
+          <span>Capítulo 03 · Archivos, LibreOffice Draw y PDF Arranger</span>
+          <span>/home/estudiante</span>
+        </footer>
+      </section>
+
+      <!-- Ventana 4: Navegadores Web (Cap. 4) -->
+      <section id="win-navegadores" class="mint-window hidden" data-window="navegadores" role="dialog" aria-labelledby="win-navegadores-title">
+        <header class="window-header">
+          <div class="window-title-group">
+            <span class="window-title-icon" aria-hidden="true">🌐</span>
+            <span id="win-navegadores-title" class="window-title-text">Navegadores Web · Chrome, Edge y Brave</span>
+          </div>
+          <div class="window-controls">
+            <button type="button" class="win-btn win-btn-minimize" title="Minimizar" aria-label="Minimizar">&#8211;</button>
+            <button type="button" class="win-btn win-btn-maximize" title="Maximizar" aria-label="Maximizar">&#9633;</button>
+            <button type="button" class="win-btn win-btn-close" title="Cerrar" aria-label="Cerrar">&#10005;</button>
+          </div>
+        </header>
+        <div class="window-body" id="content-navegadores"></div>
+        <footer class="window-statusbar">
+          <span>Capítulo 04 · Navegación segura y extensiones</span>
+          <span>Chrome · Edge · Brave</span>
+        </footer>
+      </section>
+
+      <!-- Ventana 5: Ofimática LibreOffice (Cap. 5) -->
+      <section id="win-ofimatica" class="mint-window hidden" data-window="ofimatica" role="dialog" aria-labelledby="win-ofimatica-title">
+        <header class="window-header">
+          <div class="window-title-group">
+            <span class="window-title-icon" aria-hidden="true">📝</span>
+            <span id="win-ofimatica-title" class="window-title-text">Suite Ofimática · LibreOffice</span>
+          </div>
+          <div class="window-controls">
+            <button type="button" class="win-btn win-btn-minimize" title="Minimizar" aria-label="Minimizar">&#8211;</button>
+            <button type="button" class="win-btn win-btn-maximize" title="Maximizar" aria-label="Maximizar">&#9633;</button>
+            <button type="button" class="win-btn win-btn-close" title="Cerrar" aria-label="Cerrar">&#10005;</button>
+          </div>
+        </header>
+        <div class="window-body" id="content-ofimatica"></div>
+        <footer class="window-statusbar">
+          <span>Capítulo 05 · Writer, Calc, Impress, Draw y Atajos</span>
+          <span>Español (Argentina)</span>
+        </footer>
+      </section>
+
+      <!-- Ventana 6: Terminal y Comandos Básicos (Cap. 6) -->
+      <section id="win-terminal" class="mint-window hidden" data-window="terminal" role="dialog" aria-labelledby="win-terminal-title">
+        <header class="window-header">
+          <div class="window-title-group">
+            <span class="window-title-icon" aria-hidden="true">💻</span>
+            <span id="win-terminal-title" class="window-title-text">Terminal · estudiante@tecno-presente:~</span>
+          </div>
+          <div class="window-controls">
+            <button type="button" class="win-btn win-btn-minimize" title="Minimizar" aria-label="Minimizar">&#8211;</button>
+            <button type="button" class="win-btn win-btn-maximize" title="Maximizar" aria-label="Maximizar">&#9633;</button>
+            <button type="button" class="win-btn win-btn-close" title="Cerrar" aria-label="Cerrar">&#10005;</button>
+          </div>
+        </header>
+        <div class="window-body" id="content-terminal">
+          <div id="terminal-history" class="terminal-history"></div>
+          <div class="term-prompt-line">
+            <span class="term-prompt-label">estudiante@tecno-presente:~$</span>
+            <input id="terminal-input" class="term-input" type="text" placeholder="Escribe help..." autocomplete="off" spellcheck="false">
+          </div>
+        </div>
+        <footer class="window-statusbar">
+          <span>Capítulo 06 · bash • Ctrl+Alt+T</span>
+          <span>UTF-8 • Zorin OS 18.1</span>
+        </footer>
+      </section>
+
+      <!-- Ventana 7: Wine (Cap. 7) -->
+      <section id="win-wine" class="mint-window hidden" data-window="wine" role="dialog" aria-labelledby="win-wine-title">
+        <header class="window-header">
+          <div class="window-title-group">
+            <span class="window-title-icon" aria-hidden="true">🍷</span>
+            <span id="win-wine-title" class="window-title-text">Wine · Aplicaciones Windows en Linux</span>
+          </div>
+          <div class="window-controls">
+            <button type="button" class="win-btn win-btn-minimize" title="Minimizar" aria-label="Minimizar">&#8211;</button>
+            <button type="button" class="win-btn win-btn-maximize" title="Maximizar" aria-label="Maximizar">&#9633;</button>
+            <button type="button" class="win-btn win-btn-close" title="Cerrar" aria-label="Cerrar">&#10005;</button>
+          </div>
+        </header>
+        <div class="window-body" id="content-wine"></div>
+        <footer class="window-statusbar">
+          <span>Capítulo 07 · wine-stable, winecfg y alternativas libres</span>
+          <span>WineHQ Compatible</span>
+        </footer>
+      </section>
+
+      <!-- Ventana 8: Ayuda y Preguntas Frecuentes (Cap. 8) -->
+      <section id="win-ayuda" class="mint-window hidden" data-window="ayuda" role="dialog" aria-labelledby="win-ayuda-title">
+        <header class="window-header">
+          <div class="window-title-group">
+            <span class="window-title-icon" aria-hidden="true">❓</span>
+            <span id="win-ayuda-title" class="window-title-text">Ayuda y FAQ · Preguntas Frecuentes y Recursos</span>
+          </div>
+          <div class="window-controls">
+            <button type="button" class="win-btn win-btn-minimize" title="Minimizar" aria-label="Minimizar">&#8211;</button>
+            <button type="button" class="win-btn win-btn-maximize" title="Maximizar" aria-label="Maximizar">&#9633;</button>
+            <button type="button" class="win-btn win-btn-close" title="Cerrar" aria-label="Cerrar">&#10005;</button>
+          </div>
+        </header>
+        <div class="window-body" id="content-ayuda"></div>
+        <footer class="window-statusbar">
+          <span>Capítulo 08 · Soporte, GRUB, Copias de Seguridad y Recursos</span>
+          <span>Ministerio de Educación · Córdoba</span>
+        </footer>
+      </section>
+
+      <!-- Menú de Aplicaciones (Estilo Zorin OS / TecnoLibre) -->
+      <aside id="zorin-menu-popup" aria-label="Menú de aplicaciones">
+        <div class="menu-top-header">
+          <div class="menu-user-info">
+            <img class="menu-user-avatar" src="./assets/capturas/logo-calco.png" alt="Logo Tecno Presente Circular">
+            <div class="menu-user-meta">
+              <span class="name">Tecno Presente Circular</span>
+              <span class="sub">Ministerio de Educación · Córdoba</span>
+            </div>
+          </div>
+          <span class="badge badge-tp">v2026.1</span>
+        </div>
+
+        <div id="menu-apps-list" class="menu-apps-list">
+          <button type="button" class="app-menu-entry" data-app="configuracion">
+            <span class="app-entry-emoji" aria-hidden="true">⚙️</span>
+            <span class="app-entry-info">
+              <span class="app-name">Configuración y Escritorio</span>
+              <span class="app-desc">Cap. 1 · Menú, Dock y Zorin Appearance</span>
+            </span>
+          </button>
+          <button type="button" class="app-menu-entry" data-app="redes">
+            <span class="app-entry-emoji" aria-hidden="true">📶</span>
+            <span class="app-entry-info">
+              <span class="app-name">Redes y Periféricos</span>
+              <span class="app-desc">Cap. 2 · Wi-Fi, Impresoras, USB y Escáner</span>
+            </span>
+          </button>
+          <button type="button" class="app-menu-entry" data-app="archivos">
+            <span class="app-entry-emoji" aria-hidden="true">📁</span>
+            <span class="app-entry-info">
+              <span class="app-name">Archivos y PDF</span>
+              <span class="app-desc">Cap. 3 · Explorador, Draw y PDF Arranger</span>
+            </span>
+          </button>
+          <button type="button" class="app-menu-entry" data-app="navegadores">
+            <span class="app-entry-emoji" aria-hidden="true">🌐</span>
+            <span class="app-entry-info">
+              <span class="app-name">Navegadores Web</span>
+              <span class="app-desc">Cap. 4 · Chrome, Edge y Brave</span>
+            </span>
+          </button>
+          <button type="button" class="app-menu-entry" data-app="ofimatica">
+            <span class="app-entry-emoji" aria-hidden="true">📝</span>
+            <span class="app-entry-info">
+              <span class="app-name">Ofimática LibreOffice</span>
+              <span class="app-desc">Cap. 5 · Writer, Calc, Impress y Atajos</span>
+            </span>
+          </button>
+          <button type="button" class="app-menu-entry" data-app="terminal">
+            <span class="app-entry-emoji" aria-hidden="true">💻</span>
+            <span class="app-entry-info">
+              <span class="app-name">Terminal</span>
+              <span class="app-desc">Cap. 6 · Consola y comandos básicos</span>
+            </span>
+          </button>
+          <button type="button" class="app-menu-entry" data-app="wine">
+            <span class="app-entry-emoji" aria-hidden="true">🍷</span>
+            <span class="app-entry-info">
+              <span class="app-name">Wine</span>
+              <span class="app-desc">Cap. 7 · Apps Windows y alternativas</span>
+            </span>
+          </button>
+          <button type="button" class="app-menu-entry" data-app="ayuda">
+            <span class="app-entry-emoji" aria-hidden="true">❓</span>
+            <span class="app-entry-info">
+              <span class="app-name">Ayuda y FAQ</span>
+              <span class="app-desc">Cap. 8 · Preguntas frecuentes y enlaces</span>
+            </span>
+          </button>
+        </div>
+
+        <div class="menu-search-bar">
+          <input type="text" id="menu-search-input" class="menu-search-input" placeholder="Buscar capítulo o aplicación...">
+        </div>
+      </aside>
+    </main>
+
+    <!-- Barra inferior / Dock (Inspirado en panel inferior de LinuxSO2 con estética Zorin OS) -->
+    <footer id="zorin-panel">
+      <div class="panel-left">
+        <button type="button" id="zorin-menu-btn" class="zorin-menu-button" aria-haspopup="true" aria-expanded="false">
+          <img src="./assets/capturas/logo-calco.png" alt="Logo Tecno Presente">
+          <span class="menu-btn-text">Menú</span>
+        </button>
+
+        <div class="panel-quick-launch">
+          <button type="button" class="quick-icon-btn" data-app="archivos" title="Archivos y PDF">📁</button>
+          <button type="button" class="quick-icon-btn" data-app="navegadores" title="Navegadores Web">🌐</button>
+          <button type="button" class="quick-icon-btn" data-app="ofimatica" title="LibreOffice">📝</button>
+          <button type="button" class="quick-icon-btn" data-app="terminal" title="Terminal (Ctrl+Alt+T)">💻</button>
+        </div>
+      </div>
+
+      <div id="panel-tasklist" class="panel-tasklist"></div>
+
+      <div class="panel-right">
+        <div class="tray-item tray-status-badge" title="Sistema educativo activo">
+          <span class="status-dot"></span>
+          <span>TecnoLibre</span>
+        </div>
+        <div class="tray-item" title="Red Wi-Fi conectada" data-app="redes">📶</div>
+        <div class="tray-item" title="Volumen del sistema">🔊</div>
+        <div id="tray-item-clock" class="tray-item tray-clock" title="Fecha y hora">
+          <span id="tray-clock">--:--</span>
+        </div>
+        <button type="button" id="btn-show-desktop" class="show-desktop-btn" title="Mostrar Escritorio" aria-label="Mostrar Escritorio"></button>
+      </div>
+    </footer>
+  </div>
 
   <script src="./data.js"></script>
   <script src="./app.js"></script>
 </body>
 </html>
-

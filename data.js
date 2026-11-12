@@ -202,7 +202,7 @@ window.MANUAL_DATA = {
         <em>Herramientas del sistema</em>. Un comando sigue la forma <code>comando [opciones] [argumentos]</code> (por ejemplo, <code>ls -la /home/usuario</code>).
       </p>
       <p class="terminal-warning">
-        <strong>Precaución:</strong> tené cuidado al usar <code>sudo</code> y <code>rm -r</code> en un equipo real. Probá aquí abajo comandos seguros como <code>help</code>, <code>neofetch</code> o <code>ls -la /home/usuario</code>.
+        <strong>Precaución:</strong> tené cuidado al usar <code>sudo</code> y <code>rm -r</code> en un equipo real. Probá aquí abajo comandos seguros como <code>help</code>, <code>neofetch</code>, <code>ls</code>, <code>sudo apt update</code> o comprobá la alerta de <code>sudo rm -rf /</code>.
       </p>
     </div>
   `,
@@ -319,6 +319,12 @@ window.MANUAL_DATA = {
       Productividad (<em>LibreOffice, OnlyOffice, Thunderbird, GNOME Calendar</em>) ·
       Multimedia (<em>VLC, Rhythmbox, GIMP, Audacity</em>) ·
       Educación (<em>GCompris, GeoGebra, Kolibri, KTouch</em>).
+    </div>
+
+    <div class="manual-note">
+      <strong>Manual oficial completo (PDF):</strong>
+      Podés consultar o descargar la versión original en
+      <a href="./assets/capturas/manual-capacitacion-tecnopresente-circular.pdf" target="_blank" rel="noopener noreferrer">Manual de Capacitación Tecno Presente Circular v2026.1 (PDF)</a>.
     </div>
   `
 };
