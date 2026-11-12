@@ -104,21 +104,42 @@ function closeWindow(win) {
   if (!win) return;
   win.classList.add('hidden');
   win.classList.remove('active', 'minimized', 'maximized');
+
+  const closedApp = win.dataset.window;
+  const closedIcon = document.querySelector(`.desktop-icon[data-app="${closedApp}"]`);
+  if (closedIcon) {
+    closedIcon.classList.remove('selected');
+  }
+
   activateTopVisibleWindow();
 }
 
 function openApp(appName) {
   const targetWindow = document.querySelector(`.mint-window[data-window="${appName}"]`);
-  if (!targetWindow) return;
+  if (!targetWindow) return false;
+
+  const openOtherWindow = Array.from(
+    document.querySelectorAll('.mint-window:not(.hidden)')
+  ).find((w) => w !== targetWindow);
+
+  if (openOtherWindow) {
+    closeStartMenu();
+    openOtherWindow.classList.remove('minimized');
+    bringToFront(openOtherWindow);
+
+    const openLabel = APP_SHORT_LABELS[openOtherWindow.dataset.window] || 'actual';
+    alert(
+      `Ya dispone de una ventana abierta (${openLabel}). Por favor, ciérrela primero para poder abrir otra.`
+    );
+    return false;
+  }
 
   const wasHidden = targetWindow.classList.contains('hidden');
   renderWindowContent(appName);
 
   if (wasHidden && !targetWindow.dataset.positioned && window.innerWidth > 680) {
-    const openCount = document.querySelectorAll('.mint-window:not(.hidden)').length;
-    const offset = (openCount % 5) * 26;
-    targetWindow.style.left = `${145 + offset}px`;
-    targetWindow.style.top = `${28 + offset}px`;
+    targetWindow.style.left = '145px';
+    targetWindow.style.top = '28px';
     targetWindow.dataset.positioned = 'true';
   }
 
@@ -126,10 +147,16 @@ function openApp(appName) {
   bringToFront(targetWindow);
   closeStartMenu();
 
+  document.querySelectorAll('.desktop-icon').forEach((item) => {
+    item.classList.toggle('selected', item.dataset.app === appName);
+  });
+
   if (appName === 'terminal') {
     const terminalInput = document.getElementById('terminal-input');
     if (terminalInput) terminalInput.focus();
   }
+
+  return true;
 }
 
 function setupWindowDragging(win) {
@@ -460,8 +487,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   desktopIcons.forEach((icon) => {
     icon.addEventListener('click', () => {
-      desktopIcons.forEach((item) => item.classList.remove('selected'));
-      icon.classList.add('selected');
       openApp(icon.dataset.app);
     });
   });
